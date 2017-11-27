@@ -22,17 +22,10 @@ public class MyCalculator implements Calculator {
 			return 0;
 		}
 		String[] values = s.split(",");
-		int sum = 0;
 
-		StringBuilder builder = new StringBuilder();
-		Stream.of(values).map(value -> Integer.parseInt(value.trim())).filter(num -> num <= 1000).forEach(it -> {
-			if (it < 0)
-				builder.append(it + " ");
-			else
-				sum += it;
-		});
+		int sum = Stream.of(values).map(value -> Integer.parseInt(value.trim())).filter(num -> num <= 1000 && num >= 0).mapToInt(Integer::intValue).sum();
 
-		verifyNegatives(builder);
+		verifyNegatives(values);
 		return sum;
 	}
 
@@ -42,22 +35,10 @@ public class MyCalculator implements Calculator {
 			return 0;
 		}
 		String[] values = s.split(",");
-		int sub = 0;
-		int num = 0;
-		// convert to java8
-		StringBuilder builder = new StringBuilder();
-		for (String value : values) {
-			num = Integer.parseInt(value.trim());
-			if (num < 0) {
-				builder.append(num + " ");
-			} else if (num <= 1000) {
-				if (sub == 0)
-					sub = num;
-				else
-					sub -= num;
-			}
-		}
-		verifyNegatives(builder);
+
+		int sub = Stream.of(values).map(value -> Integer.parseInt(value.trim())).filter(num -> num <= 1000 && num >= 0).mapToInt(Integer::intValue).reduce((a, b) -> a - b).orElse(0);
+
+		verifyNegatives(values);
 		return sub;
 	}
 
@@ -67,25 +48,12 @@ public class MyCalculator implements Calculator {
 			return 0;
 		}
 		String[] values = s.split(",");
-		double mult = 0;
-		double num = 0;
-		// convert to java8
-		StringBuilder builder = new StringBuilder();
-		for (String value : values) {
-			num = Float.parseFloat(value.trim());
-			if (num < 0) {
-				builder.append(num + " ");
-			} else if (num <= 1000) {
-				if (mult == 0) {
-					mult = num;
-				} else {
-					mult *= num;
-				}
-			}
-		}
-		verifyNegatives(builder);
-		BigDecimal finalValue = BigDecimal.valueOf(mult).setScale(1, RoundingMode.HALF_DOWN);
 
+		double mult = Stream.of(values).map(value -> Double.parseDouble(value.trim())).filter(num -> num <= 1000 && num >= 0).mapToDouble(Double::doubleValue).reduce(1, (a, b) -> a * b);
+
+		verifyNegatives(values);
+
+		BigDecimal finalValue = BigDecimal.valueOf(mult).setScale(1, RoundingMode.HALF_DOWN);
 		return finalValue.doubleValue();
 	}
 
@@ -95,28 +63,15 @@ public class MyCalculator implements Calculator {
 			return 0;
 		}
 		String[] values = s.split(",");
-		double div = 0;
-		float num = 0;
-		// convert to java8
-		StringBuilder builder = new StringBuilder();
-		for (String value : values) {
-			num = Float.parseFloat(value.trim());
-			if (num < 0) {
-				builder.append(num + " ");
-			} else if (num <= 1000) {
-				if (div == 0) {
-					div = num;
-				} else {
-					if (num == 0) {
-						throw new ArithmeticException("division by zero");
-					}
-					div /= num;
-				}
-			}
-		}
-		verifyNegatives(builder);
-		BigDecimal finalValue = BigDecimal.valueOf(div).setScale(1, RoundingMode.HALF_DOWN);
 
+		double div = Stream.of(values).map(value -> Double.parseDouble(value.trim())).filter(num -> num <= 1000 && num >= 0).mapToDouble(Double::doubleValue).reduce((a, b) -> a / b).orElse(0.0);
+
+		if (Double.isInfinite(div))
+			throw new ArithmeticException("division by zero");
+
+		verifyNegatives(values);
+
+		BigDecimal finalValue = BigDecimal.valueOf(div).setScale(1, RoundingMode.HALF_DOWN);
 		return finalValue.doubleValue();
 	}
 
@@ -124,7 +79,13 @@ public class MyCalculator implements Calculator {
 	 * @param StringBuilder
 	 *            Description: Verify if input has negative numbers
 	 */
-	private void verifyNegatives(StringBuilder builder) throws NegativeNumberException {
+	private void verifyNegatives(String[] values) throws NegativeNumberException {
+		StringBuilder builder = new StringBuilder();
+		Stream.of(values)
+			.map(value -> Integer.parseInt(value.trim()))
+			.filter(num -> num < 0)
+			.forEach(it -> builder.append(it + " "));
+		
 		if (builder.length() > 0) {
 			throw new NegativeNumberException("negatives not allowed: " + builder.toString());
 		}

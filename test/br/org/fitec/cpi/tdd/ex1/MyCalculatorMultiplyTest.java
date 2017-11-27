@@ -22,17 +22,11 @@ public class MyCalculatorMultiplyTest {
 
 	Calculator myCalculator;
 
-	/**
-	 * @throws java.lang.Exception
-	 */
 	@Before
 	public void setUp() throws Exception {
 		myCalculator = new MyCalculator();
 	}
 
-	/**
-	 * @throws java.lang.Exception
-	 */
 	@After
 	public void tearDown() throws Exception {
 		myCalculator = null;
@@ -84,7 +78,7 @@ public class MyCalculatorMultiplyTest {
 			myCalculator.multiply(s);
 		} catch (NegativeNumberException e) {
 			String msg = e.getMessage();
-			Assert.assertEquals("negatives not allowed: -1.0 ", msg);
+			Assert.assertEquals("negatives not allowed: -1 ", msg);
 		}
 	}
 
@@ -95,7 +89,7 @@ public class MyCalculatorMultiplyTest {
 			myCalculator.multiply(s);
 		} catch (NegativeNumberException e) {
 			String msg = e.getMessage();
-			Assert.assertEquals("negatives not allowed: -1.0 ", msg);
+			Assert.assertEquals("negatives not allowed: -1 ", msg);
 		}
 	}
 
@@ -106,7 +100,7 @@ public class MyCalculatorMultiplyTest {
 			myCalculator.multiply(s);
 		} catch (NegativeNumberException e) {
 			String msg = e.getMessage();
-			Assert.assertEquals("negatives not allowed: -3.0 -1.0 ", msg);
+			Assert.assertEquals("negatives not allowed: -3 -1 ", msg);
 		}
 	}
 
@@ -117,7 +111,7 @@ public class MyCalculatorMultiplyTest {
 			myCalculator.multiply(s);
 		} catch (NegativeNumberException e) {
 			String msg = e.getMessage();
-			Assert.assertEquals("negatives not allowed: -2.0 -1.0 ", msg);
+			Assert.assertEquals("negatives not allowed: -2 -1 ", msg);
 		}
 	}
 
@@ -135,7 +129,7 @@ public class MyCalculatorMultiplyTest {
 			myCalculator.multiply(s);
 		} catch (NegativeNumberException e) {
 			String msg = e.getMessage();
-			Assert.assertEquals("negatives not allowed: -2.0 ", msg);
+			Assert.assertEquals("negatives not allowed: -2 ", msg);
 		}
 	}
 }

@@ -18,21 +18,30 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * testDivTwoNumbersSuccess
+ * testDivOneNumberSuccess
+ * testDivNoNumberSuccess
+ * testAnyNumberSuccess
+ * testDivideByZeroNumberFailException
+ * testDivideFirstZeroNumberSuccess
+ * testNegativeNumberShouldFailException
+ * testNegativeNumber2ShouldFailException
+ * testNegativeNumber3ShouldFailException
+ * testNegativeNumber4ShouldFailException
+ * testNumberBiggerThan1000ShouldSuccess
+ * testNegativeNumberBiggerThan1000ShouldFailException
+ */
+
 public class MyCalculatorDivideTest {
 
 	Calculator myCalculator;
 
-	/**
-	 * @throws java.lang.Exception
-	 */
 	@Before
 	public void setUp() throws Exception {
 		myCalculator = new MyCalculator();
 	}
 
-	/**
-	 * @throws java.lang.Exception
-	 */
 	@After
 	public void tearDown() throws Exception {
 		myCalculator = null;
@@ -67,7 +76,7 @@ public class MyCalculatorDivideTest {
 	public void testAnyNumberSuccess() throws NegativeNumberException {
 		String s = "3,2,1";
 		double result = myCalculator.divide(s);
-		Assert.assertThat(result, is(equalTo((double) 1.5)));
+		Assert.assertThat(result, is(equalTo(1.5)));
 	}
 
 	@Test
@@ -82,13 +91,21 @@ public class MyCalculatorDivideTest {
 	}
 
 	@Test
+	public void testDivideFirstZeroNumberSuccess() throws NegativeNumberException, ArithmeticException {
+		String s = "0,3,5,6";
+
+		double result = myCalculator.divide(s);
+		Assert.assertThat(result, is(equalTo(0.0)));
+	}
+
+	@Test
 	public void testNegativeNumberShouldFailException() throws NegativeNumberException {
 		String s = "-1";
 		try {
 			myCalculator.divide(s);
 		} catch (NegativeNumberException e) {
 			String msg = e.getMessage();
-			Assert.assertEquals("negatives not allowed: -1.0 ", msg);
+			Assert.assertEquals("negatives not allowed: -1 ", msg);
 		}
 	}
 
@@ -99,7 +116,7 @@ public class MyCalculatorDivideTest {
 			myCalculator.divide(s);
 		} catch (NegativeNumberException e) {
 			String msg = e.getMessage();
-			Assert.assertEquals("negatives not allowed: -1.0 ", msg);
+			Assert.assertEquals("negatives not allowed: -1 ", msg);
 		}
 	}
 
@@ -110,7 +127,7 @@ public class MyCalculatorDivideTest {
 			myCalculator.divide(s);
 		} catch (NegativeNumberException e) {
 			String msg = e.getMessage();
-			Assert.assertEquals("negatives not allowed: -3.0 -1.0 ", msg);
+			Assert.assertEquals("negatives not allowed: -3 -1 ", msg);
 		}
 	}
 
@@ -121,7 +138,7 @@ public class MyCalculatorDivideTest {
 			myCalculator.divide(s);
 		} catch (NegativeNumberException e) {
 			String msg = e.getMessage();
-			Assert.assertEquals("negatives not allowed: -2.0 -1.0 ", msg);
+			Assert.assertEquals("negatives not allowed: -2 -1 ", msg);
 		}
 	}
 
@@ -129,7 +146,7 @@ public class MyCalculatorDivideTest {
 	public void testNumberBiggerThan1000ShouldSuccess() throws NegativeNumberException {
 		String s = "2, 3, 1001";
 		double result = myCalculator.divide(s);
-		Assert.assertThat(result, is(equalTo((double) 0.7)));
+		Assert.assertThat(result, is(equalTo(0.7)));
 	}
 
 	@Test
@@ -139,7 +156,7 @@ public class MyCalculatorDivideTest {
 			myCalculator.divide(s);
 		} catch (NegativeNumberException e) {
 			String msg = e.getMessage();
-			Assert.assertEquals("negatives not allowed: -2.0 ", msg);
+			Assert.assertEquals("negatives not allowed: -2 ", msg);
 		}
 	}
 }

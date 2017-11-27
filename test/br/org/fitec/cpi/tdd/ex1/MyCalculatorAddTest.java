@@ -19,17 +19,11 @@ public class MyCalculatorAddTest {
 
 	Calculator myCalculator;
 
-	/**
-	 * @throws java.lang.Exception
-	 */
 	@Before
 	public void setUp() throws Exception {
 		myCalculator = new MyCalculator();
 	}
 
-	/**
-	 * @throws java.lang.Exception
-	 */
 	@After
 	public void tearDown() throws Exception {
 		myCalculator = null;
