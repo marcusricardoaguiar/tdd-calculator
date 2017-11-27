@@ -10,15 +10,29 @@
 // **********************************************************************
 package br.org.fitec.cpi.tdd.ex1;
 
-public interface Calculator {
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
-	public int generic(String s) throws NegativeNumberException;
+public class MyCalculatorGenericTest {
 
-	public int add(String s) throws NegativeNumberException;
+	Calculator myCalculator;
 
-	public int subtract(String s) throws NegativeNumberException;
+	@Before
+	public void setUp() throws Exception {
+		myCalculator = new MyCalculator();
+	}
 
-	public double multiply(String s) throws NegativeNumberException;
+	@After
+	public void tearDown() throws Exception {
+		myCalculator = null;
+	}
 
-	public double divide(String s) throws ArithmeticException, NegativeNumberException;
+	@Test
+	public void testGenericRequest() throws NegativeNumberException {
+		String s = "1,2";
+		int result = myCalculator.generic(s);
+		Assert.assertEquals(0, result);
+	}
 }

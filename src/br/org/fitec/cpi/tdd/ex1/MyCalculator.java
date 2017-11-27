@@ -19,7 +19,7 @@ import java.util.stream.Stream;
 public class MyCalculator implements Calculator {
 
 	private enum OPERATIONS {
-		ADD, SUB, MUL, DIV
+		ADD, SUB, MUL, DIV, GENERIC
 	}
 
 	/**
@@ -48,6 +48,12 @@ public class MyCalculator implements Calculator {
 
 		verifyNegatives(values);
 		return result;
+	}
+
+	@Override
+	public int generic(String s) throws NegativeNumberException {
+		Number result = this.operation(s, OPERATIONS.GENERIC);
+		return result.intValue();
 	}
 
 	@Override
