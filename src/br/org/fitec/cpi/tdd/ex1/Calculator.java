@@ -11,6 +11,7 @@
 package br.org.fitec.cpi.tdd.ex1;
 
 public interface Calculator {
+
 	public int add(String s) throws NegativeNumberException;
 
 	public int subtract(String s) throws NegativeNumberException;
